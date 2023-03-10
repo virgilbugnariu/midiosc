@@ -17,9 +17,19 @@ jobs:
     - name: Package Application
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        path: .
+        path: src
+
+    - uses: canastro/copy-file-action@master
+      with:
+        source: "src/bat-files/start.bat"
+        target: "dist/start.bat"
+
+    - uses: canastro/copy-file-action@master
+      with:
+        source: "src/bat-files/learn.bat"
+        target: "dist/learn.bat"
 
     - uses: actions/upload-artifact@v2
       with:
-        name: name-of-artifact
+        name: midiosc
         path: dist

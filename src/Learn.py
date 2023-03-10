@@ -68,7 +68,8 @@ class Learn:
     def store_preferences(self):
         config = {
             "device_name": self.device.name,
-            "messages": self.messages
+            "messages": self.messages,
+            "address": ""
         }
         json_str = json.dumps(config)
         with open("config.json", "w") as f:
