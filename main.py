@@ -1,7 +1,7 @@
 import argparse
 from Learn import Learn
 from Start import Start
-
+from Connection import Connection
 
 
 
@@ -9,7 +9,7 @@ def main():
     parser = argparse.ArgumentParser(description="Test")
     parser.add_argument("-l", "--learn", action="store_true", help="Learn")
     parser.add_argument("-s", "--start", action="store_true", help="Start")
-
+    parser.add_argument("-c", "--connection", action="store", help="Save connection address")
     args = parser.parse_args()
     
     if args.learn:
@@ -17,6 +17,9 @@ def main():
     
     if args.start:
         inst = Start()
+
+    if args.connection:
+        inst = Connection(args.connection)
 
     inst.init()
 

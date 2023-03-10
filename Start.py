@@ -4,6 +4,8 @@ import time
 import json
 import mido
 
+PORT = 5005
+
 class Start:
     def __init__(self):
         print("Start")
@@ -16,7 +18,7 @@ class Start:
     def init(self):
         self.read_config()
 
-        self.client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
+        self.client = udp_client.SimpleUDPClient(self.config["address"], PORT)
         self.device = mido.open_input(self.config["device_name"])
 
         self.listen()
@@ -40,7 +42,7 @@ class Start:
         for key in self.config['messages']:
             for sub_key, sub_value in self.config['messages'][key].items():
                 if isinstance(sub_value, dict) and sub_value.get('note') == message.note:
-                    print(f"Found {key}.{sub_key}")
+                    # print(f"Found {key}.{sub_key}")
                     self.client.send_message("/deck/" + key + "/" + sub_key, 1)
                     time.sleep(0.1)
                     self.client.send_message("/deck/" + key + "/" + sub_key, 0)
