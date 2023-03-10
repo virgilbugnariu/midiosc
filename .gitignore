@@ -1,3 +1,6 @@
 __pycache__/
 .DS_Store
 config.json
+build/
+dist/
+main.spec

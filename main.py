@@ -1,9 +1,8 @@
 import argparse
+import mido.backends.rtmidi
 from Learn import Learn
 from Start import Start
 from Connection import Connection
-
-
 
 def main():
     parser = argparse.ArgumentParser(description="Test")
