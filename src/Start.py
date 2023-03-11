@@ -31,20 +31,21 @@ class Start:
     def listen(self):
         try:
             while self.running:
-                if self.device.poll():
-                    msg = self.device.receive()
+                msg = self.device.receive()
+                if msg.type == 'note_on':
                     self.handle_message(msg)
         except KeyboardInterrupt:
             self.running = False
             return
 
     def handle_message(self, message):
-        print("[DEBUG] message", message)
-        if 'note' in message:
-            for key in self.config['messages']:
-                for sub_key, sub_value in self.config['messages'][key].items():
-                    if isinstance(sub_value, dict) and sub_value.get('note') == message.note and message.type == 'note_on':
-                        print(f"Found {key}.{sub_key}")
-                        self.client.send_message("/deck/" + key + "/" + sub_key, 1)
-                        time.sleep(0.1)
-                        self.client.send_message("/deck/" + key + "/" + sub_key, 0)
+        if message.channel == 0 or message.channel == 1:
+            channel_to_deck = "a" if message.channel == 0 else "b"
+            if message.note == 1:
+                # Handle CUE
+                self.client.send_message("/deck/" + channel_to_deck + "/cue", 1 if message.velocity == 127 else 0)
+                return
+            if message.note == 0:
+                # Handle PLAY
+                self.client.send_message("/deck/" + channel_to_deck + "/play", 1 if message.velocity == 127 else 0)
+                return
