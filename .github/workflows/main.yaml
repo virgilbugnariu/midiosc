@@ -22,12 +22,12 @@ jobs:
     - uses: canastro/copy-file-action@master
       with:
         source: "src/bat-files/start.bat"
-        target: "dist/start.bat"
+        target: "dist/windows/start.bat"
 
     - uses: canastro/copy-file-action@master
       with:
         source: "src/bat-files/learn.bat"
-        target: "dist/learn.bat"
+        target: "dist/windows/learn.bat"
 
     - uses: actions/upload-artifact@v2
       with:
