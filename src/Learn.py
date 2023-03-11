@@ -42,6 +42,7 @@ class Learn:
                 if self.device.poll():
                     msg = self.device.receive()
                     if msg.type == 'note_on':
+                        print('[DEBUG]', msg)
                         if self.messages["a"]["cue"] is None:
                             self.deck_learn("a", "cue", msg)
                         elif self.messages["a"]["play"] is None:
