@@ -39,7 +39,7 @@ class Start:
             return
 
     def handle_message(self, message):
-        print("[DEBUG] message", message)
+        # print("[DEBUG] message", message)
         for key in self.config['messages']:
             for sub_key, sub_value in self.config['messages'][key].items():
                 if isinstance(sub_value, dict) and sub_value.get('note') and 'note' in message == message.note:

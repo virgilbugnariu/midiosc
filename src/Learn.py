@@ -41,14 +41,15 @@ class Learn:
             while self.running:
                 if self.device.poll():
                     msg = self.device.receive()
-                    if self.messages["a"]["cue"] is None:
-                        self.deck_learn("a", "cue", msg)
-                    elif self.messages["a"]["play"] is None:
-                        self.deck_learn("a", "play", msg)
-                    elif self.messages["b"]["cue"] is None:
-                        self.deck_learn("b", "cue", msg)
-                    elif self.messages["b"]["play"] is None:
-                        self.deck_learn("b", "play", msg)
+                    if 'note' in msg:
+                        if self.messages["a"]["cue"] is None:
+                            self.deck_learn("a", "cue", msg)
+                        elif self.messages["a"]["play"] is None:
+                            self.deck_learn("a", "play", msg)
+                        elif self.messages["b"]["cue"] is None:
+                            self.deck_learn("b", "cue", msg)
+                        elif self.messages["b"]["play"] is None:
+                            self.deck_learn("b", "play", msg)
 
                     all_selected = all(val2 is not None for val1 in self.messages.values() for val2 in val1.values())
                     if all_selected:
