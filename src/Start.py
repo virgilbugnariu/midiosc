@@ -39,10 +39,10 @@ class Start:
             return
 
     def handle_message(self, message):
-        # print("[DEBUG] message", message)
+        print("[DEBUG] message", message)
         for key in self.config['messages']:
             for sub_key, sub_value in self.config['messages'][key].items():
-                if isinstance(sub_value, dict) and sub_value.get('note') and 'note' in message == message.note:
+                if isinstance(sub_value, dict) and sub_value.get('note') == message.note and message.type == 'note_on':
                     print(f"Found {key}.{sub_key}")
                     self.client.send_message("/deck/" + key + "/" + sub_key, 1)
                     time.sleep(0.1)
