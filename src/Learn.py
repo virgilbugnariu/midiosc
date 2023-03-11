@@ -41,7 +41,7 @@ class Learn:
             while self.running:
                 if self.device.poll():
                     msg = self.device.receive()
-                    if 'note' in msg:
+                    if 'note' in msg.keys():
                         if self.messages["a"]["cue"] is None:
                             self.deck_learn("a", "cue", msg)
                         elif self.messages["a"]["play"] is None:
